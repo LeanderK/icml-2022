@@ -19,7 +19,7 @@ from shifthappens.tasks.metrics import Metric
 from shifthappens.tasks.task_result import TaskResult
 from shifthappens.tasks.base import parameter
 
-from shifthappens.tasks.ccc_utils import WalkLoader
+from shifthappens.tasks.ccc.walk_loader import WalkLoader
 
 
 @sh_benchmark.register_task(
@@ -29,18 +29,28 @@ from shifthappens.tasks.ccc_utils import WalkLoader
 class CCC(Task):
     seed: int = parameter(
         description="random seed used in the dataset building process",
+        default=0,
+        options=(1,2,3)
     )
     frequency: int = parameter(
         description="represents how many images are sampled from each subset",
+        default=5000,
+        options=(5000,)
     )
     base_amount: int = parameter(
         description="represents how large the base dataset is",
+        default=5000,
+        options=(5000,)
     )
     accuracy: int = parameter(
         description="represents the baseline accuracy of walk",
+        default=20,
+        options=(20,)
     )
     subset_size: int = parameter(
         description="represents the sample size of images sampled from ImageNet validation",
+        default=50,
+        options=(50,50000,)
     )
 
     def setup(self):
